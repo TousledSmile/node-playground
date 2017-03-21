@@ -7,9 +7,19 @@ var cache = {};
 
 function send404(response) {
     var headers = {
-        "Content-Type": 'text/plain'
+        "Content-Type": "text/plain"
     }
     response.writeHead(404, '', headers);
     response.write('Error 404: no file');
     response.end();
+}
+
+function sendFile(response, filePath, fileContents) {
+    var headers = {
+        "Content-Type": mime.lookup(path.basename(filePath))
+    };
+
+    response.writeHead(200, headers);
+
+    response.end(fileContents);
 }
